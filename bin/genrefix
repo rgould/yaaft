@@ -1,0 +1,92 @@
+#!/usr/bin/ruby
+
+usage = <<eos
+genrefix [OPTION]... FILE...
+ -n, --notest:          actually perform changes (default: only show changes
+                        to be made)
+ -a, --auto:            non-interactive mode. If a change can be made without
+                        input, it will be done. If not, it will be skipped. 
+                        If --notest is not specified, this switch does nothing.
+
+ -h, --help:            show this help and exit
+ -r, --recursive:       recursively parse directories
+ -c, --cache=DIRECTORY: specify the directory to be used for the last.fm cache
+                        defaults to ~/.scrobbleCache
+
+For each file, check for an id3 tag. If found, look up the artist's name on 
+last.fm. Change the genre tag to be the most popular tag.
+
+eos
+
+# Copyright 2007, 2008 Richard Gould, rwgould@gmail.com
+#
+# This file is part of YAAFT.
+#
+# YAAFT is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# YAAFT is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with YAAFT.  If not, see <http://www.gnu.org/licenses/>.
+
+require "yaaft/yaaft"
+require "yaaft/scrobbleCache"
+require 'getoptlong'
+require 'rdoc/usage'
+require 'id3lib'
+
+cache = nil
+options = { "recursive" => false,
+            "verbose" => false,
+            "auto" => false,
+            "notest" => false }
+
+opts = GetoptLong.new(
+  [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
+  [ '--recursive', '-r', GetoptLong::NO_ARGUMENT ],
+  [ '--verbose', '-v', GetoptLong::NO_ARGUMENT ],
+  [ '--cache', '-c', GetoptLong::OPTIONAL_ARGUMENT ],
+  [ '--auto', '-a', GetoptLong::NO_ARGUMENT ],
+  [ '--notest', '-n', GetoptLong::NO_ARGUMENT]
+)
+
+begin
+  opts.each do |opt, arg|
+    case opt
+    when '--help'
+      print usage
+      exit 0
+    when '--recursive'
+      options["recursive"] = true
+    when '--verbose'
+      options["verbose"] = true
+    when '--cache'
+      cache = ScrobbleCache.new(File.expand_path(arg))
+    when '--auto'
+      options["auto"] = true
+    when '--notest'
+      options["notest"] = true
+    else
+      puts "Invalid switch: #{opt}. Try --help"
+      exit 1
+    end
+  end
+rescue GetoptLong::InvalidOption => e
+  puts "#{e.message}. Try --help"
+end
+
+if (cache == nil) then
+  yaaft = YAAFT::Validator.new(ScrobbleCache.new, options)
+else
+  yaaft = YAAFT::Validator.new(cache, options)
+end
+
+yaaft.fixGenres(ARGV)
+
+

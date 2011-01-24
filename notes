@@ -1,0 +1,60 @@
+Tools:
+
+Lastfm
+ - retrieve proper artist name
+ - get artist tags
+ - get album tags
+ - get song tags
+ - get artist tags from user
+ - get album tags from user
+ - get song tags from user 
+
+Tag format:
+   "tag" => weight
+   eg: "industrial" => 90
+       "ebm" => 70
+
+==Validation==
+
+ReplayGain:
+ - check for ReplayGain data in APE tags (should probably upgrade to id3v2)
+ - check for ReplayGain data in ID3v2 RVA2 frames
+ - check for presence of undo data (which we may or may not want to undo)
+ - if absent, perform analysis and write tags
+ - note: if ReplayGain as ID3 is required, we must have ID3v2 tags present
+
+ID3v1:
+ - if both ID3v1 and v2 are present, raise flag if they differ
+ - if only ID3v1 is present, either move or copy to ID3v2
+ - check for proper/missing metadata
+
+Bit-rate:
+ - bitrate is below a certain threshold
+ - average bitrate for VBR
+
+File layout:
+ - File conforms to specific layout format
+ - eg: %genre/%artist - %year - %album/%track - %title.mp3
+ - Multidisc releases have either all tracks in one directory, or one directory per disc.
+ - Compilations also conform to specific layout which differs from above
+ - File names are safe for other file systems (FAT32, NTFS, contain only strict ASCII character set)
+
+File permissions:
+ - correspond to preset properties
+ - no execute bit set
+
+ID3v2 Tags:
+ - Text strings are encoded properly as UTF-8 (or another encoding)
+ 
+Albums
+ - all tracks in the same album have the same album tag
+ - most should have the same artist tag
+ - if more than X different artist tags, it should probably be in various artists
+ - no gaps in the track numbers of the tracks (01, 02, 05, 06, etc.)
+
+Album Art:
+ - check that album art exists in directory
+ - conforms to valid format (jpg, gif, png)
+ - has valid filename (album, cover)
+ 
+

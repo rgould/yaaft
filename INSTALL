@@ -1,0 +1,23 @@
+install rubygems:
+
+sudo apt-get install rubygems1.8
+
+ruby headers (required for building the ruby gem):
+
+sudo apt-get install ruby1.8-dev
+
+install id3lib support:
+
+sudo aptitude install libid3-dev
+
+sudo gem install id3lib-ruby
+
+sudo gem install rspec
+
+
+sudo apt-get install zlib1g-dev
+
+
+sudo gem install ruby-mp3info
+
+we use mp3info because it properly supports character sets when reading/writing tags
