@@ -2,18 +2,9 @@
 
 # == Usage
 #
-#  lookuptag.rb [OPTION]... artistfix FILE...
+#  yaaft [OPTION] ALBUM...
 #
 #  -h, --help:            show this help and exit
-#  -r, --recursive:       recursively parse directories
-#  -c, --cache=DIRECTORY: specify the directory to be used for the last.fm cache
-#                         defaults to ~/.scrobbleCache
-#
-#  artistfix: For each file, check for an id3 tag. If found, look up the
-#             artist's name on last.fm. Change the tag to agree with the
-#             information retrieved.
-
-# Copyright 2007, 2008 Richard Gould, rwgould@gmail.com
 #
 # This file is part of YAAFT.
 #
@@ -45,7 +36,6 @@ options = { "recursive" => false,
 
 opts = GetoptLong.new(
   [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
-  [ '--recursive', '-r', GetoptLong::NO_ARGUMENT ],
   [ '--verbose', '-v', GetoptLong::NO_ARGUMENT ],
   [ '--cache', '-c', GetoptLong::OPTIONAL_ARGUMENT ],
   [ '--auto', '-a', GetoptLong::NO_ARGUMENT ],
@@ -83,4 +73,4 @@ else
   validator = YAAFT::Validator.new(cache, options)
 end
 
-validator.processFiles(ARGV)
+validator.validate(ARGV)

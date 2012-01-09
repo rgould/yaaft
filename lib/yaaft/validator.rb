@@ -190,7 +190,7 @@ class Validator
     return tags
   end
 
-  def processFiles(files) 
+  def validate(files) 
     files.each { |file| 
       if (!FileTest.exists?(file)) then
         raise "Cannot find file: #{file}."
