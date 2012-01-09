@@ -1,3 +1,10 @@
+PATH
+  remote: .
+  specs:
+    yaaft (0.0.1)
+      id3lib-ruby
+      ruby-mp3info
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -17,6 +24,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  id3lib-ruby
   rspec
-  ruby-mp3info
+  yaaft!

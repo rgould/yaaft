@@ -20,4 +20,6 @@ Gem::Specification.new do |s|
 
   # specify any dependencies here; for example:
   s.add_runtime_dependency "id3lib-ruby"
+  s.add_runtime_dependency "ruby-mp3info"
+  s.add_development_dependency "rspec"
 end
