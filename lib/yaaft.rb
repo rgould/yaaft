@@ -1,5 +1,5 @@
 require "yaaft/version"
 
 module Yaaft
-  # Your code goes here...
+  require "yaaft/bitrate_analyser"
 end
