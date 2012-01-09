@@ -1,20 +1,53 @@
-Tools:
+== Intro ==
 
-Lastfm
- - retrieve proper artist name
- - get artist tags
- - get album tags
- - get song tags
- - get artist tags from user
- - get album tags from user
- - get song tags from user 
+I have a massive music collection. It's really obscure music. I've tried organising it using iTunes (that was a mess) and tried using MusicBrainz (a large portion of my collection isn't even in there). Awesomely, it seems that discogs.com knows about most of the music I listen to, followed by last.fm. Let's organise using that data!
 
-Tag format:
-   "tag" => weight
-   eg: "industrial" => 90
-       "ebm" => 70
+Operates on single albums at a time:
 
-==Validation==
+> yaaft "/music/Tyske Ludder - Anonymous"
+
+bit-rate: VBR >192KBps - PASS
+replay-gain: Adding replay gain tags
+verify-metadata:
+ artist: Tyske Ludder... OK
+ album: Anonymouus... Changed to Anonymous
+ year: not present - Changed to 2010
+ track 01: Something... OK
+ track 02: Something... Changed to Foo
+ ...
+ track 11: Something... OK
+
+extended-metadata:
+ setting genres: Industrial, EBM, German
+ cover art not found: Enter URL of cover art:
+
+rename files:
+ creating album directory /music/done/Tyske Ludder - 2010 - Anonymous
+ renaming files:
+   01 - Something.mp3
+   02 - Something.mp3
+
+Multiple CD albums should all be passed in on one command line if they are in multiple folders
+
+> yaaft "/music/Rome - Die Æsthetik der Herrschaftsfreiheit - CD1" "/music/Rome - Die Æsthetik der Herrschaftsfreit - C2"
+
+as always, let your shell do the work for you:
+
+> yaaft "/music/Rome - Die Æsthetik der Herrschaftsfreiheit - CD*"
+
+This will organise all the CDs into one directory.
+
+== Organize ==
+
+> organize
+
+- Alarm if bit-rate is too low
+- Add ReplayGain tags in ID3
+- Verify basic metadata (title, artist, album, year, track number)
+- Setup extended metadata (genre, album art)
+- Rename file to appropriate structure
+
+== Validation ==
 
 ReplayGain:
  - check for ReplayGain data in APE tags (should probably upgrade to id3v2)
