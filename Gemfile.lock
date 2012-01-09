@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/mattsears/nyan-cat-formatter.git
+  revision: ae57086e132064a5a56193ea3c6d0e3d380d6b62
+  specs:
+    nyan-cat-formatter (0.0.5)
+
 PATH
   remote: .
   specs:
@@ -24,5 +30,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  nyan-cat-formatter!
   rspec
   yaaft!
