@@ -22,4 +22,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "id3lib-ruby"
   s.add_runtime_dependency "ruby-mp3info"
   s.add_development_dependency "rspec"
+  s.add_development_dependency "cucumber"
+  s.add_development_dependency "aruba"
 end
