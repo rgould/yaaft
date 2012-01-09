@@ -1,3 +1,5 @@
-#!/bin/env ruby
-require 'yaaft/lookuptag'
+require "yaaft/version"
 
+module Yaaft
+  # Your code goes here...
+end
