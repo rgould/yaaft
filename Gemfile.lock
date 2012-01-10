@@ -9,6 +9,7 @@ PATH
   specs:
     yaaft (0.0.1)
       id3lib-ruby
+      mixlib-cli
       ruby-mp3info
 
 GEM
@@ -34,6 +35,7 @@ GEM
       json (>= 1.4.6)
     id3lib-ruby (0.6.0)
     json (1.6.4)
+    mixlib-cli (1.2.2)
     rspec (2.8.0)
       rspec-core (~> 2.8.0)
       rspec-expectations (~> 2.8.0)
