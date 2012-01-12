@@ -9,8 +9,18 @@ Feature: Bitrate Analyser
 
   Scenario: Low Constant Bit Rate
     When I run `yaaft bitrate low-cbr.mp3`
-    Then the output should contain "low-cbr.mp3... low bitrate!"
+    Then the output should contain "low-cbr.mp3... low bitrate: 128kbps"
+    And the output should not contain "vbr"
 
   Scenario: High Constant Bit Rate
     When I run `yaaft bitrate high-cbr.mp3`
     Then the output should contain "high-cbr.mp3... OK"
+
+  Scenario: Low Variable Bit Rate
+    When I run `yaaft bitrate low-vbr.mp3`
+    Then the output should contain "low-vbr.mp3... low bitrate: 31kbps vbr"
+
+  Scenario: High Variable Bit Rate
+    When I run `yaaft bitrate high-vbr.mp3`
+    Then the output should contain "high-vbr.mp3... OK"
+
