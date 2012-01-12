@@ -5,17 +5,29 @@ module Yaaft
   class CLI
     include Mixlib::CLI
 
-    def bitrate(file)
-      mp3info = Mp3Info.open(file, :encoding => 'utf-8')
-      if Yaaft::BitrateAnalyser.analyse(mp3info)
-        puts "#{file}... OK"
-      else
-        puts "#{file}... low bitrate!"
-      end
-    end
+    option :help,
+      short: "-h",
+      long: "--help",
+      on: :tail,
+      boolean: true,
+      show_options: true,
+      exit: 0
+
+    option :version,
+      short: "-v",
+      long: "--version",
+      on: :tail,
+      description: "Show yaaft version and exit",
+      boolean: true
 
     def run(argv=ARGV)
       args = parse_options(argv)
+
+      if config[:version]
+        puts Yaaft::VERSION
+        exit 0
+      end
+
       case args.shift
       when "bitrate"
         explodeFiles(args).flatten.each do |f|
@@ -23,6 +35,15 @@ module Yaaft
         end
       else
         puts "Unknown subcommand. Try --help"
+      end
+    end
+
+    def bitrate(file)
+      mp3info = Mp3Info.open(file, :encoding => 'utf-8')
+      if Yaaft::BitrateAnalyser.analyse(mp3info)
+        puts "#{file}... OK"
+      else
+        puts "#{file}... low bitrate!"
       end
     end
 
