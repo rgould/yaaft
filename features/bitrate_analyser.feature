@@ -7,6 +7,16 @@ Feature: Bitrate Analyser
     When I run `yaaft bitrate missing-file`
     Then the output should contain "No such file or directory: missing-file"
 
+  Scenario: Multiple Files
+    When I run `yaaft bitrate low-cbr.mp3 low-vbr.mp3`
+    Then the output should contain "low-cbr.mp3... low bitrate: 128kbps"
+    And the output should contain "low-vbr.mp3... low bitrate: 31kbps vbr"
+
+  Scenario: Folders
+    When I run `yaaft bitrate subfolder`
+    Then the output should contain "subfolder/low-cbr.mp3... low bitrate: 128kbps"
+    And the output should contain "subfolder/low-vbr.mp3... low bitrate: 31kbps vbr"
+
   Scenario: Low Constant Bit Rate
     When I run `yaaft bitrate low-cbr.mp3`
     Then the output should contain "low-cbr.mp3... low bitrate: 128kbps"

@@ -50,13 +50,16 @@ module Yaaft
       end
     end
 
-    def explodeFiles(files)
-      files.map do |f|
-        abort "No such file or directory: #{f}" unless FileTest.exists?(f)
-        if FileTest.directory?(f)
-          explodeFiles(Dir.foreach(f))
+    def explodeFiles(files, curr_path = "")
+      files.flat_map do |f|
+        file = if curr_path == "" then f else "#{curr_path}/#{f}" end
+        abort "No such file or directory: #{file}" unless FileTest.exists?(f)
+        if f == "." || f == ".."
+          nil
+        elsif FileTest.directory?(file)
+          explodeFiles(Dir.foreach(file), file).reject{|a| a.nil?}
         else
-          f
+          file
         end
       end
     end
