@@ -40,10 +40,13 @@ module Yaaft
 
     def bitrate(file)
       mp3info = Mp3Info.open(file, :encoding => 'utf-8')
+      print "#{file}... "
       if Yaaft::BitrateAnalyser.analyse(mp3info)
-        puts "#{file}... OK"
+        puts "OK"
       else
-        puts "#{file}... low bitrate!"
+        print "low bitrate: #{mp3info.bitrate}kbps"
+        print " vbr" if mp3info.vbr
+        print "\n"
       end
     end
 
