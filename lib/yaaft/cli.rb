@@ -33,6 +33,8 @@ module Yaaft
         explodeFiles(args).flatten.each do |f|
           bitrate(f)
         end
+      when "replaygain"
+        replaygain explodeFiles(args).flatten.uniq
       else
         puts "Unknown subcommand. Try --help"
       end
@@ -47,6 +49,12 @@ module Yaaft
         print "low bitrate: #{mp3info.bitrate}kbps"
         print " vbr" if mp3info.vbr
         print "\n"
+      end
+    end
+
+    def replaygain(files)
+      files.each do |f|
+        prints "#{file}..."
       end
     end
 
