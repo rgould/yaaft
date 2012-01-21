@@ -36,6 +36,7 @@ GEM
     id3lib-ruby (0.6.0)
     json (1.6.4)
     mixlib-cli (1.2.2)
+    rake (0.8.7)
     rspec (2.8.0)
       rspec-core (~> 2.8.0)
       rspec-expectations (~> 2.8.0)
@@ -54,5 +55,6 @@ DEPENDENCIES
   aruba
   cucumber
   nyan-cat-formatter!
+  rake
   rspec
   yaaft!
