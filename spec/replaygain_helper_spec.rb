@@ -1,12 +1,11 @@
 require "yaaft"
 
-describe Yaaft::ReplayGainHelper do
+describe Yaaft::ReplayGainHelper, "has_tags?" do
   context "when the file has no replaygain data" do
     # this is the same case as having the replay gain data in the APE tags
     it "should apply replaygain data" do
       mp3info = replaygain
       Yaaft::ReplayGainHelper.has_tags?(mp3info).should be false
-      Yaaft::ReplayGainHelper.apply_tags(mp3info).should be true
     end
   end
 
@@ -21,10 +20,8 @@ describe Yaaft::ReplayGainHelper do
     it "should apply replaygain data" do
       mp3info = replaygain("track")
       Yaaft::ReplayGainHelper.has_tags?(mp3info).should be false
-      Yaaft::ReplayGainHelper.apply_tags(mp3info).should be true
     end
   end
-
 end
 
 def replaygain(rva2 = nil)

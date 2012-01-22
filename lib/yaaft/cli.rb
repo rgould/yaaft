@@ -54,7 +54,11 @@ module Yaaft
 
     def replaygain(files)
       files.each do |f|
-        prints "#{file}..."
+        unless Yaaft::ReplayGainHelper.has_tags?(f)
+          puts "Analysing files as one album: #{files}"
+          Yaaft::ReplayGainHelper.apply_tags(files)
+          return
+        end
       end
     end
 

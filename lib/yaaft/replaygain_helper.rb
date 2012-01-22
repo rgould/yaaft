@@ -1,7 +1,7 @@
 module Yaaft
   class ReplayGainHelper
     def self.has_tags?(mp3info)
-      return false if mp3info.tag2.RVA2.nil?
+      return false if mp3info.tag2.nil? || mp3info.tag2.RVA2.nil?
       # see http://www.id3.org/id3v2.4.0-frames for RVA2 definition.
       # replaygain tags in RVA2 usually have multiple entries
       # one for "track" and one for "album". We require both.
@@ -14,8 +14,17 @@ module Yaaft
       end
     end
 
-    def self.apply_tags(mp3info)
-      true
+    def self.apply_tags(files)
+      if `which mp3gain` == ""
+        puts "mp3gain is not installed. Cannot perform replaygain anaylsis."
+        return false
+      else
+        cmd = "mp3gain -s i #{files.join(" ")}"
+        unless system("#{cmd}")
+          puts "Error running #{cmd}: #{$?}"
+        end
+        true
+      end
     end
   end
 end
